@@ -13,7 +13,8 @@
 	],
 	"dependencies": {
 		"pcap": "*",
-		"argv": "*"
+		"argv": "*",
+		"blessed": "*"
 	},
 	"private": true,
 	"license": "MIT"
