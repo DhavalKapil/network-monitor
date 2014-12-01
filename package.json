@@ -1,6 +1,7 @@
 {
 	"name": "network-monitor",
 	"description": "A module to analyze the network traffic",
+	"version": "0.0.1",
 	"author": "Dhaval Kapil <me@dhavalkapil.com>",
 	"keywords": [
 		"node",
@@ -11,7 +12,8 @@
 		"traffic"
 	],
 	"dependencies": {
-		"pcap": "*"
+		"pcap": "*",
+		"argv": "*"
 	},
 	"private": true,
 	"license": "MIT"
