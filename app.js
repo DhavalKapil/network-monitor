@@ -17,9 +17,13 @@ tcp_tracker.on('http request', function(session, http) {
 	var logString = http.request.method + ' ' + http.request.url + ' HTTP/' + http.request.http_version;
 	var headers = http.request.headers;
 
-	// Adding log entry in ui
-	log.writeLog(http.request, 'l');
+	// display log entry in ui
 	ui.displayLog(logString, headers);
+
+	// Log the packet transfer to a file if specified
+	if(typeof args.params.log !== 'undefined') {
+		log.writeLog(http.request, args.params.log);
+	}
 });
 
 // Listening on packets
