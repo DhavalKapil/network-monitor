@@ -14,7 +14,8 @@
 	"dependencies": {
 		"pcap": "*",
 		"argv": "*",
-		"blessed": "*"
+		"blessed": "*",
+		"moment": "*"
 	},
 	"private": true,
 	"license": "MIT"

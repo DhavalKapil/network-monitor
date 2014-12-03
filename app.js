@@ -5,6 +5,7 @@ var pcap = require('pcap');
 var args = require('./lib/args.js');
 var CONST = require('./lib/constants.js');
 var ui = require('./lib/ui.js');
+var log = require('./lib/log.js');
 
 // Starting a capture session
 var pcap_session = pcap.createSession(args.params.interface, args.params.filter);
@@ -13,11 +14,12 @@ var pcap_session = pcap.createSession(args.params.interface, args.params.filter)
 var tcp_tracker = new pcap.TCP_tracker();
 
 tcp_tracker.on('http request', function(session, http) {
-	var log = http.request.method + ' ' + http.request.url + ' HTTP/' + http.request.http_version;
+	var logString = http.request.method + ' ' + http.request.url + ' HTTP/' + http.request.http_version;
 	var headers = http.request.headers;
 
 	// Adding log entry in ui
-	ui.addLog(log, headers);
+	log.writeLog(http.request, 'l');
+	ui.displayLog(logString, headers);
 });
 
 // Listening on packets
