@@ -13,11 +13,15 @@
 
 ## Installation
 
-> [sudo] npm install network-monitor -g
+```
+[sudo] npm install network-monitor -g
+```
 
 ## Usage
 
-> [sudo] network-monitor -h
+```
+[sudo] network-monitor -h
+```
 
 ## Dependencies
 
