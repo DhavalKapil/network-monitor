@@ -1,6 +1,6 @@
 {
 	"name": "network-monitor",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Tool to analyze and monitor network traffic",
 	"keywords": [
 		"node",
@@ -14,7 +14,7 @@
 	"author": "Dhaval Kapil <me@dhavalkapil.com> (https://dhavalkapil.com/)",
 	"license": "MIT",
 	"bin": {
-		"network-monitor": "./app.js"
+		"network-monitor": "./bin/network-monitor"
 	},
 	"repository": {
 		"type": "git",
