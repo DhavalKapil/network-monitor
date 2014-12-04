@@ -1,8 +1,7 @@
 {
 	"name": "network-monitor",
+	"version": "1.0.0",
 	"description": "Tool to analyze and monitor network traffic",
-	"version": "0.0.1",
-	"author": "Dhaval Kapil <me@dhavalkapil.com>",
 	"keywords": [
 		"node",
 		"network",
@@ -11,12 +10,24 @@
 		"analyzer",
 		"traffic"
 	],
+	"bugs": "https://github.com/DhavalKapil/network-monitor/issues",
+	"author": "Dhaval Kapil <me@dhavalkapil.com> (https://dhavalkapil.com/)",
+	"license": "MIT",
+	"bin": {
+		"network-monitor": "./app.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/DhavalKapil/network-monitor.git"
+	},
 	"dependencies": {
 		"pcap": "*",
 		"argv": "*",
 		"blessed": "*",
 		"moment": "*"
 	},
-	"private": true,
-	"license": "MIT"
+	"engines": {
+		"node": ">=0.10.25"
+	},
+	"preferGlobal": true
 }

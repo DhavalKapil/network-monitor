@@ -1,5 +1,6 @@
 // Requiring external modules
 var pcap = require('pcap');
+var moment = require('moment');
 
 // Requiring custom modules
 var args = require('./lib/args.js');
@@ -17,12 +18,14 @@ tcp_tracker.on('http request', function(session, http) {
 	var logString = http.request.method + ' ' + http.request.url + ' HTTP/' + http.request.http_version;
 	var headers = http.request.headers;
 
+	var timestamp = moment();
+
 	// display log entry in ui
-	ui.displayLog(logString, headers);
+	ui.displayLog(logString, headers, timestamp);
 
 	// Log the packet transfer to a file if specified
 	if(typeof args.params.log !== 'undefined') {
-		log.writeLog(http.request, args.params.log);
+		log.writeLog(http.request, timestamp, args.params.log);
 	}
 });
 
