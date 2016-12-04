@@ -2,6 +2,16 @@
 var pcap = require('pcap');
 var moment = require('moment');
 
+// A object reference to make
+// a validation in the packets
+var TCP = require("./node_modules/pcap/decode/tcp");
+
+// Hack to override HTTPSession events,
+// because the default behaviour of the
+// http-trace is output all the HTTP traffic
+// using console.log
+var HTTPSession = require("./node_modules/http_trace/http_session");
+
 // Requiring custom modules
 var args = require('./lib/args.js');
 var CONST = require('./lib/constants.js');
@@ -13,21 +23,29 @@ var start = function() {
 	var pcap_session = pcap.createSession(args.params.interface, args.params.filter);
 
 	// Creating a TCP tracker
-	var tcp_tracker = new pcap.TCP_tracker();
+	var tcp_tracker = new pcap.TCPTracker();
 
-	tcp_tracker.on('http request', function(session, http) {
-		var logString = http.request.method + ' ' + http.request.url + ' HTTP/' + http.request.http_version;
-		var headers = http.request.headers;
+	// Receiving TCP traffic
+	tcp_tracker.on('session', function (tcp_session) {
+		// Decoding HTTP in TCP session
+		var http_session = new HTTPSession(tcp_session);
 
-		var timestamp = moment();
+		// Overriding HTTPSession event
+		// to listen http requests and
+		// display them in UI
+		http_session.on("http request", function (session) {
+			var logString = session.request.method + ' ' + session.request.url + ' HTTP/' + session.request.http_version;
+			var headers = session.request.headers;
+			var timestamp = moment();
 
-		// display log entry in ui
-		ui.displayLog(logString, headers, timestamp);
+			// Display log entry in UI
+			ui.displayLog(logString, headers, timestamp);
 
-		// Log the packet transfer to a file if specified
-		if(typeof args.params.log !== 'undefined') {
-			log.writeLog(http.request, timestamp, args.params.log);
-		}
+			// Log the packet transfer to a file if specified
+			if(typeof args.params.log !== 'undefined') {
+				log.writeLog(http.request, timestamp, args.params.log);
+			}
+		});
 	});
 
 	// Listening on packets
@@ -36,7 +54,7 @@ var start = function() {
 		var packet = pcap.decode.packet(raw_packet);
 
 		// Track TCP packets
-		if(packet.link.ip.protocol_name === 'TCP') {
+		if(packet.payload.payload.payload instanceof TCP) {
 			tcp_tracker.track_packet(packet);
 		}
 	});
