@@ -1,4 +1,4 @@
-#network-monitor
+# network-monitor
 
 > Tool to analyze and monitor network traffic
 
@@ -33,7 +33,7 @@
 
 ## Common Issue
 
-###IPv6
+### IPv6
 
 IPv6 is not yet supported. use the filter `ip proto \tcp` to filter out IPv6 packets.
 
