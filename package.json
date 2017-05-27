@@ -24,7 +24,8 @@
 		"pcap": "*",
 		"argv": "*",
 		"blessed": "*",
-		"moment": "*"
+		"moment": "*",
+		"http_trace": "*"
 	},
 	"engines": {
 		"node": ">=0.10.25"
